@@ -19,19 +19,15 @@ const getKeyType = (key) => {
 const createResultString = (key, displayedNum, state) => {
   const keyContent = key.textContent;
   const keyType = getKeyType(key);
-  const { firstValue, operator, modifierValue, previousKeyType } = state;
+  const { firstValue, operator, modValue, previousKeyType } = state;
 
   // display input number
   if (keyType === "number") {
-    if (
-      displayedNum === "0" ||
+    return displayedNum === "0" ||
       previousKeyType === "operator" ||
       previousKeyType === "calculate"
-    ) {
-      return keyContent;
-    } else {
-      return displayedNum + keyContent;
-    }
+      ? keyContent
+      : displayedNum + keyContent;
   }
 
   // append decimal
@@ -72,7 +68,7 @@ const updateCalculatorState = (
   displayedNum
 ) => {
   const keyType = getKeyType(key);
-  const { firstValue, operator, modifierValue, previousKeyType } =
+  const { firstValue, operator, modValue, previousKeyType } =
     calculator.dataset;
 
   calculator.dataset.previousKeyType = keyType;
@@ -89,15 +85,13 @@ const updateCalculatorState = (
   }
 
   if (keyType === "calculate") {
-    calculator.dataset.modifierValue =
-      firstValue && previousKeyType === "calculate"
-        ? modifierValue
-        : displayedNum;
+    calculator.dataset.modValue =
+      firstValue && previousKeyType === "calculate" ? modValue : displayedNum;
   }
 
   if (keyType === "clear" && key.textContent === "AC") {
     calculator.dataset.firstValue = "";
-    calculator.dataset.modifierValue = "";
+    calculator.dataset.modValue = "";
     calculator.dataset.operator = "";
     calculator.dataset.previousKeyType = "";
   }
