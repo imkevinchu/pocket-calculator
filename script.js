@@ -112,19 +112,22 @@ keys.addEventListener("click", (e) => {
 });
 
 const calculate = (operand1, operator, operand2) => {
-  let result = "";
   operand1 = parseFloat(operand1);
   operand2 = parseFloat(operand2);
 
   if (operator === "add") {
-    result = operand1 + operand2;
-  } else if (operator === "subtract") {
-    result = operand1 - operand2;
-  } else if (operator === "multiply") {
-    result = operand1 * operand2;
-  } else if (operator === "divide") {
-    result = operand1 / operand2;
+    return operand1 + operand2;
   }
 
-  return result;
+  if (operator === "subtract") {
+    return operand1 - operand2;
+  }
+
+  if (operator === "multiply") {
+    return operand1 * operand2;
+  }
+
+  if (operator === "divide") {
+    return operand1 / operand2;
+  }
 };
